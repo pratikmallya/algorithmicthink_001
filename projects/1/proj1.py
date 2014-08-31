@@ -1,3 +1,8 @@
+"""
+Solution to Project 1 - Degree distributions for graphs
+https://class.coursera.org/algorithmicthink-001/wiki/graph_degree
+"""
+
 import unittest
 from itertools import izip
 
@@ -14,7 +19,7 @@ EX_GRAPH1 = {0: set([1, 4, 5]),
              5: set([2]),
              6: set([])}
 
-EX_GRAPH2 = {0: set([1, 4]),
+EX_GRAPH2 = {0: set([1, 4, 5]),
              1: set([2, 6]),
              2: set([3, 7]),
              3: set([7]),
@@ -31,10 +36,10 @@ def make_complete_graph(num_nodes):
 
     graph = {}
 
-    for i in range(num_nodes):
+    for index in range(num_nodes):
         neighbor_nodes = range(num_nodes)
-        neighbor_nodes.pop(i)
-        graph[i] = set(neighbor_nodes)
+        neighbor_nodes.pop(index)
+        graph[index] = set(neighbor_nodes)
 
     return graph
 
@@ -86,7 +91,7 @@ class TestAlg(unittest.TestCase):
 
         indegs = [{0: 0, 1: 1, 2: 1},
                   {0: 1, 1: 2, 2: 2, 3: 1, 4: 1, 5: 1, 6: 1},
-                  {0: 1, 1: 3, 2: 3, 3: 3, 4: 2, 5: 1, 6: 2, 7: 3, 8: 0,
+                  {0: 1, 1: 3, 2: 3, 3: 3, 4: 2, 5: 2, 6: 2, 7: 3, 8: 0,
                    9: 0}]
 
         for computed_indeg, indeg in izip(computed_indegs, indegs):
@@ -101,7 +106,7 @@ class TestAlg(unittest.TestCase):
 
         indeg_dists = [{0: 1, 1: 2},
                        {1: 5, 2: 2},
-                       {0: 2, 1: 2, 2: 2, 3: 4}]
+                       {0: 2, 1: 1, 2: 3, 3: 4}]
 
         for c_indeg_dist, indeg_dist in izip(c_indeg_dists, indeg_dists):
             self.assertEqual(c_indeg_dist, indeg_dist)
