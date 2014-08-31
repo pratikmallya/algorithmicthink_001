@@ -1,3 +1,20 @@
+import unittest
+
+
+class TestAlg(unittest.TestCase):
+    """Unit test class to test algorithms"""
+
+    def test_make_complete_graph(self):
+        """Test the make_complete_graph function"""
+
+        n = 100
+        graph = make_complete_graph(n)
+
+        for node, neighbors in graph.items():
+            real_neighbors = range(n)
+            real_neighbors.pop(node)
+            self.assertEqual(set(real_neighbors), neighbors)
+
 EX_GRAPH0 = {0: set([1, 2]),
              1: set([]),
              2: set([])}
@@ -32,3 +49,29 @@ def make_complete_graph(num_nodes):
         graph[i] = set(neighbor_nodes)
 
     return graph
+
+def compute_in_degrees(digraph):
+    """return a dictionary with in-degrees of all nodes"""
+
+    in_degrees = dict.fromkeys(digraph.keys, 0)
+
+    for heads in digraph.values():
+        for head in heads:
+            in_degrees[head] += 1
+
+    return in_degrees
+
+def in_degree_distribution(digraph):
+    """return un-normalized distribution of in_degrees"""
+
+    in_degrees = compute_in_degrees(digraph)
+    in_degree_dist = dict.fromkeys(in_degrees.values(), 0)
+
+    for in_degree in in_degrees.values():
+        in_degree_dist[in_degree] += 1
+
+    return in_degree_dist
+
+
+if __name__ == "__main__":
+    unittest.main()
