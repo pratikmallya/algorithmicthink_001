@@ -1,19 +1,6 @@
 import unittest
+from itertools import izip
 
-
-class TestAlg(unittest.TestCase):
-    """Unit test class to test algorithms"""
-
-    def test_make_complete_graph(self):
-        """Test the make_complete_graph function"""
-
-        n = 100
-        graph = make_complete_graph(n)
-
-        for node, neighbors in graph.items():
-            real_neighbors = range(n)
-            real_neighbors.pop(node)
-            self.assertEqual(set(real_neighbors), neighbors)
 
 EX_GRAPH0 = {0: set([1, 2]),
              1: set([]),
@@ -27,7 +14,7 @@ EX_GRAPH1 = {0: set([1, 4, 5]),
              5: set([2]),
              6: set([])}
 
-EX_GRAPH1 = {0: set([1, 4]),
+EX_GRAPH2 = {0: set([1, 4]),
              1: set([2, 6]),
              2: set([3, 7]),
              3: set([7]),
@@ -53,7 +40,7 @@ def make_complete_graph(num_nodes):
 def compute_in_degrees(digraph):
     """return a dictionary with in-degrees of all nodes"""
 
-    in_degrees = dict.fromkeys(digraph.keys, 0)
+    in_degrees = dict.fromkeys(digraph.keys(), 0)
 
     for heads in digraph.values():
         for head in heads:
@@ -71,6 +58,36 @@ def in_degree_distribution(digraph):
         in_degree_dist[in_degree] += 1
 
     return in_degree_dist
+
+
+class TestAlg(unittest.TestCase):
+    """Unit test class to test algorithms"""
+
+    def test_make_complete_graph(self):
+        """Test the make_complete_graph function"""
+
+        n = 100
+        graph = make_complete_graph(n)
+
+        for node, neighbors in graph.items():
+            real_neighbors = range(n)
+            real_neighbors.pop(node)
+            self.assertEqual(set(real_neighbors), neighbors)
+
+    def test_compute_in_degrees(self):
+        """Test the compute_in_degrees function"""
+
+        computed_indegs = [compute_in_degrees(EX_GRAPH0),
+             compute_in_degrees(EX_GRAPH1),
+             compute_in_degrees(EX_GRAPH2)]
+
+        indegs = [{0: 0, 1: 1, 2: 1},
+                   {0: 1, 1: 2, 2: 2, 3: 1, 4: 1, 5: 1, 6: 1},
+                   {0: 1, 1: 3, 2: 3, 3: 3, 4: 2, 5: 1, 6: 2, 7: 3, 8: 0,
+                    9: 0}]
+
+        for computed_indeg, indeg in izip(computed_indegs, indegs):
+            self.assertEqual(computed_indeg, indeg)
 
 
 if __name__ == "__main__":
