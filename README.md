@@ -1,4 +1,5 @@
-https://travis-ci.org/pratikmallya/algorithmicthink_001.svg?branch=master
+[![Build Status](https://travis-ci.org/pratikmallya/algorithmicthink_001.svg?branch=master)](https://travis-ci.org/pratikmallya/algorithmicthink_001)
+
 
 Algorithmic Thinking
 ====================
