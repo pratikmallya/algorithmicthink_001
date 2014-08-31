@@ -89,6 +89,20 @@ class TestAlg(unittest.TestCase):
         for computed_indeg, indeg in izip(computed_indegs, indegs):
             self.assertEqual(computed_indeg, indeg)
 
+    def test_in_degree_distribution(self):
+        """Test the in_degree_distribution function"""
+
+        c_indeg_dists = [in_degree_distribution(EX_GRAPH0),
+             in_degree_distribution(EX_GRAPH1),
+             in_degree_distribution(EX_GRAPH2)]
+
+        indeg_dists = [{0: 1, 1: 2},
+                       {1: 5, 2: 2},
+                       {0: 2, 1: 2, 2: 2, 3: 4}]
+
+        for c_indeg_dist, indeg_dist in izip(c_indeg_dists, indeg_dists):
+            self.assertEqual(c_indeg_dist, indeg_dist)
+
 
 if __name__ == "__main__":
     unittest.main()
