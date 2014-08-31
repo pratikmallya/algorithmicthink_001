@@ -1,5 +1,5 @@
 language: python
 python:
-  - "3.3"
+  - "2.7"
 # command to run tests, e.g. python setup.py test
 script:  nosetests --all-modules
