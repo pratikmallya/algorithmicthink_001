@@ -25,6 +25,7 @@ EX_GRAPH2 = {0: set([1, 4]),
              8: set([1, 2]),
              9: set([0, 3, 4, 5, 6, 7])}
 
+
 def make_complete_graph(num_nodes):
     """return complete graph with n nodes"""
 
@@ -37,6 +38,7 @@ def make_complete_graph(num_nodes):
 
     return graph
 
+
 def compute_in_degrees(digraph):
     """return a dictionary with in-degrees of all nodes"""
 
@@ -47,6 +49,7 @@ def compute_in_degrees(digraph):
             in_degrees[head] += 1
 
     return in_degrees
+
 
 def in_degree_distribution(digraph):
     """return un-normalized distribution of in_degrees"""
@@ -78,13 +81,13 @@ class TestAlg(unittest.TestCase):
         """Test the compute_in_degrees function"""
 
         computed_indegs = [compute_in_degrees(EX_GRAPH0),
-             compute_in_degrees(EX_GRAPH1),
-             compute_in_degrees(EX_GRAPH2)]
+                           compute_in_degrees(EX_GRAPH1),
+                           compute_in_degrees(EX_GRAPH2)]
 
         indegs = [{0: 0, 1: 1, 2: 1},
-                   {0: 1, 1: 2, 2: 2, 3: 1, 4: 1, 5: 1, 6: 1},
-                   {0: 1, 1: 3, 2: 3, 3: 3, 4: 2, 5: 1, 6: 2, 7: 3, 8: 0,
-                    9: 0}]
+                  {0: 1, 1: 2, 2: 2, 3: 1, 4: 1, 5: 1, 6: 1},
+                  {0: 1, 1: 3, 2: 3, 3: 3, 4: 2, 5: 1, 6: 2, 7: 3, 8: 0,
+                   9: 0}]
 
         for computed_indeg, indeg in izip(computed_indegs, indegs):
             self.assertEqual(computed_indeg, indeg)
@@ -93,8 +96,8 @@ class TestAlg(unittest.TestCase):
         """Test the in_degree_distribution function"""
 
         c_indeg_dists = [in_degree_distribution(EX_GRAPH0),
-             in_degree_distribution(EX_GRAPH1),
-             in_degree_distribution(EX_GRAPH2)]
+                         in_degree_distribution(EX_GRAPH1),
+                         in_degree_distribution(EX_GRAPH2)]
 
         indeg_dists = [{0: 1, 1: 2},
                        {1: 5, 2: 2},
