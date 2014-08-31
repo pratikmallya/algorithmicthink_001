@@ -1,3 +1,5 @@
+https://travis-ci.org/pratikmallya/algorithmicthink_001.svg?branch=master
+
 Algorithmic Thinking
 ====================
 
