@@ -73,13 +73,10 @@ def plot_deg_dist(graph):
 
 def main():
     citation_graph = load_graph(CITATION_URL)
-    #indeg_dist_graph = in_degree_distribution(citation_graph)
-    #normalize_indegree_dist(indeg_dist_graph)
+    indeg_dist_graph = in_degree_distribution(citation_graph)
+    normalize_indegree_dist(indeg_dist_graph)
+    plot_deg_dist(indeg_dist_graph)
 
-    n_nodes = len(citation_graph.keys())
-
-    total_outdegree = reduce(lambda x, y: x+y, map(len, citation_graph.values()))
-    print("average outdegree is: {}".format(float(total_outdegree)/n_nodes))
 
 if __name__ == "__main__":
     main()
