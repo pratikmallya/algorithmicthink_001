@@ -6,7 +6,6 @@ https://class.coursera.org/algorithmicthink-001/wiki/graph_degree
 import unittest
 from itertools import izip
 
-
 EX_GRAPH0 = {0: set([1, 2]),
              1: set([]),
              2: set([])}
@@ -56,17 +55,38 @@ def compute_in_degrees(digraph):
     return in_degrees
 
 
+def compute_out_degrees(digraph):
+    """return a dictionary with out-degrees of all the nodes"""
+
+    out_degrees = dict.fromkeys(digraph.keys(), 0)
+
+    for tail, heads in digraph.items():
+        out_degrees[tail] = len(heads)
+
+    return out_degrees
+
 def in_degree_distribution(digraph):
     """return un-normalized distribution of in_degrees"""
 
     in_degrees = compute_in_degrees(digraph)
-    in_degree_dist = dict.fromkeys(in_degrees.values(), 0)
+    return compute_degree_distribution(in_degrees)
 
-    for in_degree in in_degrees.values():
-        in_degree_dist[in_degree] += 1
 
-    return in_degree_dist
+def out_degree_distribution(digraph):
+    """return un-normalized distribution of out_degrees"""
+    out_degrees = compute_out_degrees(digraph)
+    return compute_degree_distribution(out_degrees)
 
+
+def compute_degree_distribution(graph_dist):
+    """Compute the degree distribution"""
+
+    degree_dist = dict.fromkeys(graph_dist.values(), 0)
+
+    for degree in graph_dist.values():
+        degree_dist[degree] += 1
+
+    return degree_dist
 
 class TestAlg(unittest.TestCase):
     """Unit test class to test algorithms"""
