@@ -131,6 +131,34 @@ class TestAlg(unittest.TestCase):
         for c_indeg_dist, indeg_dist in izip(c_indeg_dists, indeg_dists):
             self.assertEqual(c_indeg_dist, indeg_dist)
 
+    def test_compute_out_degrees(self):
+        """Test the compute_out_degrees function"""
+
+        computed_outdegs = [compute_out_degrees(EX_GRAPH0),
+                           compute_out_degrees(EX_GRAPH1),
+                           compute_out_degrees(EX_GRAPH2)]
+
+        outdegs = [{0: 2, 1: 0, 2: 0},
+                  {0: 3, 1: 2, 2: 1, 3: 1, 4: 1, 5: 1, 6: 0},
+                  {0: 3, 1: 2, 2: 2, 3: 1, 4: 1, 5: 1, 6: 0, 7: 1, 8: 2,
+                   9: 6}]
+
+        for computed_outdeg, outdeg in izip(computed_outdegs, outdegs):
+            self.assertEqual(computed_outdeg, outdeg)
+
+    def test_out_degree_distribution(self):
+        """Test the out_degree_distribution function"""
+
+        c_outdeg_dists = [out_degree_distribution(EX_GRAPH0),
+                         out_degree_distribution(EX_GRAPH1),
+                         out_degree_distribution(EX_GRAPH2)]
+
+        outdeg_dists = [{0: 2, 2: 1},
+                        {0: 1, 1: 4, 2: 1, 3: 1},
+                        {0: 1, 1: 4, 2: 3, 3: 1, 6: 1}]
+
+        for c_outdeg_dist, outdeg_dist in izip(c_outdeg_dists, outdeg_dists):
+            self.assertEqual(c_outdeg_dist, outdeg_dist)
 
 if __name__ == "__main__":
     unittest.main()
