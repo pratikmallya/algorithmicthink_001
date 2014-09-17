@@ -9,6 +9,29 @@ time complexity of bfs will be O(nlogn).
 """
 
 from collections import deque
+import unittest
+
+class TestAlg(unittest.TestCase):
+
+    def test_1(self):
+        EX_GRAPH2 = {
+             0: set([1]),
+             1: set([2, 0, 3]),
+             2: set([3, 1]),
+             3: set([1, 2, 4, 5]),
+             4: set([3]),
+             5: set([3]),
+             6: set([7, 8]),
+             7: set([8, 6]),
+             8: set([6, 7]),
+             9: set([])
+        }
+        self.assertEqual(set(range(6)), bfs_visited(EX_GRAPH2, 0))
+        self.assertEqual(set([9]), bfs_visited(EX_GRAPH2, 9))
+        self.assertEqual(set(range(6,9)), bfs_visited(EX_GRAPH2, 8))
+        self.assertEqual(largest_cc_size(EX_GRAPH2), 6)
+        self.assertEqual(compute_resilience(EX_GRAPH2, range(10)),
+                         [6, 5, 4, 3, 3, 3, 3, 2, 1, 1, 0])
 
 
 def bfs_visited(ugraph, start_node):
@@ -45,9 +68,10 @@ def largest_cc_size(ugraph):
 
     connected_components = cc_visited(ugraph)
     if connected_components:
-        return len(max(connected_components))
+        return max(list(map(len, connected_components)))
     else:
         return 0
+
 
 def compute_resilience(ugraph, attack_order):
     """compute the resilience of the graph given attack order"""
@@ -67,3 +91,7 @@ def remove_node(ugraph, node):
     for neighbor in neighbors:
         ugraph[neighbor].remove(node)
     del ugraph[node]
+
+
+if __name__ == "__main__":
+    unittest.main()
