@@ -85,5 +85,6 @@ def main():
     plot_deg_dist(indeg_dist_graph)
 
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    unitmain()
+#
