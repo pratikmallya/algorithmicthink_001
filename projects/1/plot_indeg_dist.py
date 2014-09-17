@@ -7,7 +7,7 @@ Imports physics citation graph
 # general imports
 import urllib2
 from proj1 import compute_in_degrees, in_degree_distribution, DPA
-from matplotlib import pyplot
+#from matplotlib import pyplot
 
 
 CITATION_URL = "http://storage.googleapis.com/codeskulptor-alg/alg_phys-cite.txt"
