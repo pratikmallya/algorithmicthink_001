@@ -5,6 +5,7 @@ https://class.coursera.org/algorithmicthink-001/wiki/graph_degree
 
 import unittest
 from itertools import izip
+from alg_DPA_trial import DPATrial
 
 EX_GRAPH0 = {0: set([1, 2]),
              1: set([]),
@@ -87,6 +88,24 @@ def compute_degree_distribution(graph_dist):
         degree_dist[degree] += 1
 
     return degree_dist
+
+
+
+def DPA(n, m):
+    """Implementation of the DPA algorithm to create a random graph"""
+
+    graph = make_complete_graph(m)
+
+    dpa_trial = DPATrial(m)
+
+    for i in range(m, n):
+        print(i)
+        #indeg = compute_in_degrees(graph)
+        #totindeg = reduce(lambda x, y: x + y, map(len, indeg.values()))
+        new_nodes = dpa_trial.run_trial(m)
+        graph[i] = new_nodes
+
+    return graph
 
 class TestAlg(unittest.TestCase):
     """Unit test class to test algorithms"""

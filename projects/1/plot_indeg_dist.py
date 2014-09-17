@@ -6,7 +6,7 @@ Imports physics citation graph
 
 # general imports
 import urllib2
-from proj1 import compute_in_degrees, in_degree_distribution
+from proj1 import compute_in_degrees, in_degree_distribution, DPA
 from matplotlib import pyplot
 
 
@@ -66,14 +66,21 @@ def plot_deg_dist(graph):
     pyplot.yscale('log')
     pyplot.xlabel('$\log$(in-degree)')
     pyplot.ylabel('$\log$(no. of nodes) (normalized)')
-    pyplot.title('Distribution of in-degree for citation graph')
+    pyplot.title('Distribution of in-degree for DPA graph')
     pyplot.grid('on')
     pyplot.show()
 
 
 def main():
-    citation_graph = load_graph(CITATION_URL)
-    indeg_dist_graph = in_degree_distribution(citation_graph)
+    #graph = load_graph(CITATION_URL)
+
+    graph = DPA(27770, 13)
+    import cPickle as pickle
+
+    with open("graph.pkl", 'w') as o:
+        pickle.dump(graph, o)
+
+    indeg_dist_graph = in_degree_distribution(graph)
     normalize_indegree_dist(indeg_dist_graph)
     plot_deg_dist(indeg_dist_graph)
 
