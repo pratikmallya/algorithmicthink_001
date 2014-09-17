@@ -9,44 +9,61 @@ time complexity of bfs will be O(nlogn).
 """
 
 from collections import deque
-import unittest
-
-
-class TestAlg(unittest.TestCase):
-
-    def test_1(self):
-        EX_GRAPH2 = {
-             0: set([1, 4, 5]),
-             1: set([2, 6]),
-             2: set([3, 7]),
-             3: set([7]),
-             4: set([1]),
-             5: set([2]),
-             6: set([]),
-             7: set([3]),
-             8: set([1, 2]),
-             9: set([0, 3, 4, 5, 6, 7])
-        }
-        self.assertEqual(set(range(8)), bfs_visited(EX_GRAPH2, 0))
-        self.assertEqual(set(range(10)) - set([8]), bfs_visited(EX_GRAPH2, 9))
-        self.assertEqual(set(range(9)) - set([0, 4, 5]), bfs_visited(EX_GRAPH2, 8))
 
 
 def bfs_visited(ugraph, start_node):
-    """return the set of all node visited by bfs traversal of graph"""
-    neighbors = deque(neighbor for neighbor in ugraph[start_node])
-    visited = set([start_node])
+    """compute set of all node visited by bfs traversal of graph"""
+    neighbors = deque([start_node])
+    visited = set()
 
     while neighbors:
         node = neighbors.popleft()
-        if node in visited:
-            continue
         visited.add(node)
         for item in ugraph[node]:
-            neighbors.append(item)
+            if item not in visited:
+                neighbors.append(item)
 
     return visited
 
 
-if __name__ == "__main__":
-    unittest.main()
+def cc_visited(ugraph):
+    """compute connected components of graph"""
+    connected_components = []
+    allnodes = set(ugraph.keys())
+
+    while allnodes:
+        node = allnodes.pop()
+        visited = bfs_visited(ugraph, node)
+        allnodes -= visited
+        connected_components.append(visited)
+
+    return connected_components
+
+
+def largest_cc_size(ugraph):
+    """compute the size of the largest connected component"""
+
+    connected_components = cc_visited(ugraph)
+    if connected_components:
+        return len(max(connected_components))
+    else:
+        return 0
+
+def compute_resilience(ugraph, attack_order):
+    """compute the resilience of the graph given attack order"""
+    resilience = [largest_cc_size(ugraph)]
+
+    for node in attack_order:
+        remove_node(ugraph, node)
+        resilience.append(largest_cc_size(ugraph))
+
+    return resilience
+
+
+def remove_node(ugraph, node):
+    """remove node from graph"""
+
+    neighbors = ugraph[node]
+    for neighbor in neighbors:
+        ugraph[neighbor].remove(node)
+    del ugraph[node]
